@@ -1,0 +1,101 @@
+<app-page-header
+  title="contact"
+  description="a long list"
+  icon="bi bi-people-fill"
+></app-page-header>
+
+<div class="row mt-4 text-center table-responsive">
+  <h2>Company employees contacts table</h2>
+  <table
+    *ngIf="contactsData.length; else noUsers"
+    class="table table-border mt-3 p-3"
+  >
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th class="ls">Email</th>
+        <th class="ls">Birthday</th>
+        <th>Phones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of contactsData; index as i">
+        <td class="fw-bold">{{ i + 1 }}</td>
+        <td>{{ user.name | titlecase }}</td>
+        <td class="ls">{{ user.email | lowercase }}</td>
+        <td class="ls">{{ user.birthday | date: "dd/MM/yyyy" }}</td>
+        <td>
+          <select
+            value="tel: +"
+            onchange="location = this.value"
+            *ngIf="user.phones.length; else noPhones"
+          >
+            <option *ngFor="let phone of user.phones">
+              {{ phone }}
+            </option>
+          </select>
+          <ng-template #noPhones>
+            <p><i>No phones...</i></p>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noUsers>
+  <p><i>No Users Found...</i></p>
+</ng-template>
+
+<!-- <div class="" *ngFor="let user of contactsData; index as i">
+  <details value="user">
+    <summary>
+      Name : {{ user.name | titlecase }} | Email : {{ user.email | lowercase }}
+    </summary>
+    No. : {{ i + 1 }}
+    <br />
+    Birthday : {{ user.birthday | date: "dd/MM/yyyy" }}
+    <br />
+    Phones :
+    <ul *ngIf="user.phones.length; else noPhones">
+      <li *ngFor="let phone of user.phones">{{ phone }}</li>
+    </ul>
+    <ng-template #noPhones>
+      <p><i>No phones...</i></p>
+    </ng-template>
+  </details>
+</div> -->
+
+<!-- <div
+  class="accordion"
+  id="accordionExample"
+  *ngFor="let user of contactsData; index as i"
+>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseOne"
+        aria-expanded="false"
+        aria-controls="collapseOne"
+      >
+        User ID: {{ i + 1 }} Name: {{ user.name }}
+      </button>
+    </h2>
+    <div
+      id="collapseOne"
+      class="accordion-collapse collapse hide"
+      aria-labelledby="headingOne"
+      data-bs-parent="#accordionExample"
+    >
+      <div class="accordion-body">
+        <b>Name:</b> {{ user.name | titlecase }} <br />
+        <b>Email:</b> {{ user.email | lowercase }} <br />
+        <b>Birthday</b> {{ user.birthday | date: "dd/MM/yyyy" }} <br />
+        <b>Phone</b> {{ user.phones }} <br />
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,89 @@
+<app-page-header
+  title="customers"
+  icon="bi bi-emoji-smile-fill"
+  description="list of customers"
+>
+</app-page-header>
+
+<div class="row mt-4">
+  <div class="col-8">
+    <input
+      type="text"
+      [(ngModel)]="phoneTerm"
+      name="phoneTerm"
+      class="form-control"
+      placeholder="Search customer By Phone"
+    />
+  </div>
+
+  <div class="col-4">
+    <span class="float-end">
+      <a routerLink="./new" class="btn btn-primary btnMobile">
+        <i class="bi bi-person-plus"></i> <br />
+        New Customer
+      </a>
+    </span>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-12">
+    <div *ngIf="customers$ | async as customers; else loading">
+      <table
+        *ngIf="customers.length; else noCustomers"
+        class="table table-border"
+      >
+        <thead>
+          <tr>
+            <th>#No.</th>
+            <th>First Name</th>
+            <th class="ls">Last Name</th>
+            <th class="ls">Email</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let customer of customers
+                | filterArrayOfObject: 'phone':phoneTerm;
+              index as i
+            "
+          >
+            <td>
+              {{ i + 1 }}.
+              <a [routerLink]="['./', customer.id, 'edit']">
+                <i class="bi bi-pencil-fill"></i>
+              </a>
+              <a class="ms-3" (click)="remove(customer.id, $event)">
+                <i
+                  [ngStyle]="{ cursor: 'pointer' }"
+                  class="bi bi-trash-fill"
+                ></i>
+              </a>
+            </td>
+            <td class="ls">
+              <a [routerLink]="['./', customer.id]">
+                {{ customer.firstName }}
+              </a>
+            </td>
+            <td>{{ customer.lastName }}</td>
+            <td class="ls">
+              <a [href]="'mailto: +' + customer.email">
+                {{ customer.email }}
+              </a>
+            </td>
+            <td>
+              <a [href]="'tel: +' + customer.phone">
+                {{ customer.phone }}
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #noCustomers> no customers </ng-template>
+    </div>
+    <ng-template #loading> .... </ng-template>
+  </div>
+</div>

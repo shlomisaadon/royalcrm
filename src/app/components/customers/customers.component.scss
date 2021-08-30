@@ -1,0 +1,16 @@
+.table {
+  td {
+    height: 30px;
+  }
+}
+.ls {
+  @media (max-width: 700px) {
+    display: none;
+  }
+}
+
+.btnMobile {
+  @media (max-width: 700px) {
+    font-size: 12px;
+  }
+}

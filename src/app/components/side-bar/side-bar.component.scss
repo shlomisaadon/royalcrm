@@ -1,0 +1,31 @@
+.nav {
+  min-height: 100%;
+  position: fixed;
+  padding-top: 60px !important;
+  li {
+    a {
+      span {
+        font-family: sans-serif;
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .nav {
+    min-height: 100%;
+    position: fixed;
+    padding-top: 60px !important;
+    text-align: center;
+    li {
+      a {
+        i {
+          font-size: 30px;
+        }
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+}
